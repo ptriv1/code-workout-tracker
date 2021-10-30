@@ -51,4 +51,27 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.put("/api/workouts/", (req, res) => {
+  db.workout.update(
+    {
+      _id: mongojs.ObjectId(params.id)
+    },
+    {
+      $set: {
+        read: false
+      }
+    },
+
+    (error, edited) => {
+      if (error) {
+        console.log(error);
+        res.send(error);
+      } else {
+        console.log(edited);
+        res.send(edited);
+      }
+    }
+  );
+ });
+
 module.exports = router;
