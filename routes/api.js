@@ -75,8 +75,8 @@ router.put("/api/workouts/", (req, res) => {
 
  router.put('/api/workouts/:id', ({ body, params }, res) => {
   Workout.findByIdAndUpdate(
-    info._id, 
-      {$push: {"messages": {title: title, msg: msg}}},
+    params._id, 
+      {$push: {"messages": {req.body.title: title, req.body.msg: msg}}},
       {safe: true, upsert: true, new: true},
     function(err, result) {
       if (err) {
