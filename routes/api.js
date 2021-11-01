@@ -73,4 +73,19 @@ router.put("/api/workouts/", (req, res) => {
   );
  });
 
+ router.put('/api/workouts/:id', ({ body, params }, res) => {
+  workout.findByIdAndUpdate(
+    info._id, 
+      {$push: {"messages": {title: title, msg: msg}}},
+      {safe: true, upsert: true, new: true},
+    function(err, result) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 module.exports = router;
