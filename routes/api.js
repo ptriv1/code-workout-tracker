@@ -76,16 +76,15 @@ router.put("/api/workouts/", (req, res) => {
  router.put('/api/workouts/:id', ({ body, params }, res) => {
   Workout.findByIdAndUpdate(
     params._id, 
-      {$push: {"messages": {req.body.title: title, req.body.msg: msg}}},
-      {safe: true, upsert: true, new: true},
-    function(err, result) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(result);
-      }
-    }
-  );
+      { $push: { exercises: body } },
+      { new: true, runValidators: true }
+  )
+  .then((dbWorkout) => {
+    res.json(dbWorkout);
+  })
+  .catch((err) => {
+    res.json(err);
+  });
 });
 
 module.exports = router;
