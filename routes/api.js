@@ -22,7 +22,13 @@ router.post("api/workouts/bulk", ({ body }, res) => {
 });
 
 router.get("/api/workouts", (req, res) => {
-  Workout.find({})
+  Workout.aggregate({
+      $addFields: {
+        totalDuration: {
+          $sum: '$exercises.duration'
+        }
+      }
+    })
     .sort({ date: -1 })
     .then(dbWorkout => {
       res.json(dbWorkout);
