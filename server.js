@@ -19,7 +19,11 @@ app.get('/exercise', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/exercise.html'));
 });
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
+app.get('/stats', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/stats.html'));
+});
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
