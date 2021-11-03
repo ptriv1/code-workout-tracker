@@ -4,54 +4,54 @@ const Schema = mongoose.Schema;
 
 const workoutSchema = new Schema({
     day: {
-      type: Date,
-      default: () => new Date(),
+        type: Date,
+        default: () => new Date(),
     },
     exercises: [
-      {
-        type: {
-          type: String,
-          trim: true,
-          required: 'Enter an exercise type',
+        {
+            type: {
+                type: String,
+                trim: true,
+                required: 'Enter an exercise type',
+            },
+            name: {
+                type: String,
+                trim: true,
+                required: 'Enter an exercise name',
+            },
+            duration: {
+                type: Number,
+                required: 'Enter an exercise duration in minutes',
+            },
+            weight: {
+                type: Number,
+            },
+            reps: {
+                type: Number,
+            },
+            sets: {
+                type: Number,
+            },
+            distance: {
+                type: Number,
+            },
         },
-        name: {
-          type: String,
-          trim: true,
-          required: 'Enter an exercise name',
-        },
-        duration: {
-          type: Number,
-          required: 'Enter an exercise duration in minutes',
-        },
-        weight: {
-          type: Number,
-        },
-        reps: {
-          type: Number,
-        },
-        sets: {
-          type: Number,
-        },
-        distance: {
-          type: Number,
-        },
-      },
     ],
-  }, {
+},
+{
     toJSON: {
-      virtuals: true
+        virtuals: true
     }
-  }
-  );
+});
 
-  workoutSchema.virtual("totalDuration").get(function () {
+workoutSchema.virtual("totalDuration").get(function () {
     let totalDuration = 0;
     this.exercises.forEach(element => {
-      totalDuration = sum(element.duration);
+        totalDuration = sum(element.duration);
     });
     return totalDuration;
-  });
+});
 
-const Workout = mongoose.model("Workout", workoutSchema); 
+const Workout = mongoose.model("Workout", workoutSchema);
 
 module.exports = Workout;
